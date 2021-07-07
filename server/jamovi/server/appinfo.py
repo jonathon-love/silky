@@ -34,7 +34,10 @@ class AppInfo:
     def version(self):
         if self._version is None:
             try:
-                version_path = os.path.join(conf.get('home'), 'Resources', 'jamovi', 'version')
+                if platform == 'linux':
+                    version_path = os.path.join(conf.get('home'), 'lib', 'jamovi', 'version')
+                else:
+                    version_path = os.path.join(conf.get('home'), 'Resources', 'jamovi', 'version')
                 with open(version_path, 'r', encoding='utf-8') as version_file:
                     self._version = version_file.readline().strip()
             except Exception:
